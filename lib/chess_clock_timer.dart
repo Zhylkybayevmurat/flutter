@@ -5,7 +5,7 @@ class ChessClockTimer extends StatelessWidget {
   final bool isReversed;
   final bool isTicking;
   final bool isTimeUp;
-
+  final Function onPressed;
   final Duration availableTime;
 
   const ChessClockTimer({
@@ -14,6 +14,7 @@ class ChessClockTimer extends StatelessWidget {
     this.isTicking = false,
     this.isTimeUp = false,
     @required this.availableTime,
+    this.onPressed,
   }) : super(key: key);
 
   Color _getColor(){
@@ -34,16 +35,19 @@ class ChessClockTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: _getColor(),
-      child: Center(
-        child: RotatedBox(
-            quarterTurns: isReversed ? 2 : 0,
-            child: Text(
-              _getAvailableTimeText(),
-              style: TextStyle(
-              fontSize: 70,
-            ),)
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        color: _getColor(),
+        child: Center(
+          child: RotatedBox(
+              quarterTurns: isReversed ? 2 : 0,
+              child: Text(
+                _getAvailableTimeText(),
+                style: TextStyle(
+                  fontSize: 70,
+                ),)
+          ),
         ),
       ),
     );
